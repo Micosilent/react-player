@@ -10,7 +10,7 @@ function chillHop() {
       audio: "https://mp3.chillhop.com/serve.php/?mp3=7994",
       color: ["#985B60", "#1B283B"],
       id: uuidv4(),
-      active: false,
+      active: true,
     },
     {
       name: "Stay",
