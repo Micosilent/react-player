@@ -13,6 +13,7 @@ const Player = ({
   setIsPlaying,
   songs,
   setCurrentSong,
+  setSongs,
 }) => {
   //References
   const audioRef = useRef(null);
@@ -54,23 +55,37 @@ const Player = ({
 
   const skipTrackHandler = (direction) => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    let desiredIndex = 0;
 
     if (direction === "skip-forward") {
       //check for last song (loop back to the first song)
       if (currentIndex === songs.length - 1) {
-        setCurrentSong(songs[0]);
-        return;
+        desiredIndex = 0;
+      } else {
+        desiredIndex = currentIndex + 1;
       }
-      setCurrentSong(songs[currentIndex + 1]);
     }
     if (direction === "skip-back") {
       //check for first song ( loop back to the last song)
       if (currentIndex === 0) {
-        setCurrentSong(songs[songs.length - 1]);
-        return;
+        desiredIndex = songs.length - 1;
+      } else {
+        desiredIndex = currentIndex - 1;
       }
-      setCurrentSong(songs[currentIndex - 1]);
     }
+
+    setCurrentSong(songs[desiredIndex]);
+
+    //Add active state
+    setSongs(
+      songs.map((song) => {
+        if (song.id === songs[desiredIndex].id) {
+          return { ...song, active: true };
+        } else {
+          return { ...song, active: false };
+        }
+      })
+    );
   };
 
   //State
