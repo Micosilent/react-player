@@ -155,6 +155,7 @@ const Player = ({
         onLoadedData={loadedDataHandler}
         ref={audioRef}
         src={currentSong.audio}
+        onEnded={() => skipTrackHandler("skip-forward")}
       ></audio>
     </div>
   );
